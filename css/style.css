@@ -24,6 +24,10 @@ body{
 .thumbnail img{
     border: solid 1px #337AB7;
     border-radius: 50%;
+    max-width: 300px;
+    max-height: 300px;
+    min-width: 300px;
+    min-height: 300px;
 }
 
 .price{
@@ -65,4 +69,12 @@ body{
 .btn-order:hover, .btn-order:focus{
     color: white;
     background-color: blue;
+}
+
+/* ADMIN */
+
+.admin{
+    background-color: white;
+    padding: 50px;
+    border-radius: 10px;
 }
