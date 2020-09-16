@@ -8,13 +8,13 @@
 
     $nameError = $descriptionError = $priceError = $imageError = $name = $description = $price = $category = $image = "";
 
-    if(!empty($_POST))
+    if(!empty($_POST)) //vide pour le 1er passage, 2eme passage lorsque j'appuie sur modifier dans ma page update
     {
         $name = checkInput($_POST['name']);
         $description = checkInput($_POST['description']);
         $price = checkInput($_POST['price']);
         $category = checkInput($_POST['category']);
-        $image = checkInput($_FILES['image']['name']);
+        $image = checkInput($_FILES['image']['name']); // image cas particulier pour insertion
         $imagePath = "../images/" . basename($image);
         $imageExtension = pathinfo($imagePath, PATHINFO_EXTENSION);
         $isSuccess = true;
@@ -66,15 +66,43 @@
             
         }
 
-        if(($isSuccess && $isImageUpdated && $isUploadSuccess) || ($isSuccess && !$isImageUpdated))
+        if(($isSuccess && $isImageUpdated && $isUploadSuccess) || ($isSuccess && !$isImageUpdated)) //attention plusieurs cas de succès dans modif
+        {
+            $db = Database::connect(); //connexion à la db
+            if($isImageUpdated)
+            {
+                $statement = $db->prepare("UPDATE items set name = ?, description = ?, price = ?, category = ?, image = ? WHERE id = ?");
+                $statement->execute(array($name,$description,$price,$category,$image,$id));
+            } else {
+                $statement = $db->prepare("UPDATE items set name = ?, description = ?, price = ?, category = ? WHERE id = ?");
+                $statement->execute(array($name,$description,$price,$category,$id));
+            }
+            
+            Database::disconnect();
+            header("Location: index.php"); //retour à index.php
+        }
+        else if($isImageUpdated && !$isUploadSuccess)
         {
             $db = Database::connect();
-            $statement = $db->prepare("INSERT INTO items (name, description, price, category, image) values(?,?,?,?,?)");
-            $statement->execute(array($name,$description,$price,$category,$image));
+            $statement = $db->prepare("SELECT image FROM items WHERE id = ?");
+            $statement->execute(array($id));
+            $item = $statement->fetch();
+            $image = $item['image'];
             Database::disconnect();
-            header("Location: index.php");
         }
 
+    }
+    else { //1er passage lorque j'appuie sur modifier dans l'index
+        $db = Database::connect();
+        $statement = $db->prepare("SELECT * FROM items WHERE id = ?");
+        $statement->execute(array($id));
+        $item = $statement->fetch();
+        $name = $item['name'];
+        $description = $item['description'];
+        $price = $item['price'];
+        $category = $item['category'];
+        $image = $item['image'];
+        Database::disconnect();
     }
  
     function checkInput($data) 
@@ -153,8 +181,18 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-sm-6">
-                    
+                        <div class="col-sm-6 site">
+                            <div class="thumbnail">
+                                <img src="<?php echo '../images/' . $image ; ?>" alt="">
+                                <div class="price"><?php echo '  '.number_format((float)$item['price'], 2, '.', ''). ' €'; ?></div>
+                                    <div class="caption">
+                                        <h4><?php echo $name; ?></h4>
+                                        <p><?php echo $description; ?></p>
+                                        <a href="#" class="btn btn-order" role="button"><i class="fas fa-shopping-cart"></i>Commander</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div> 
             </div>
