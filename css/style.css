@@ -78,3 +78,7 @@ body{
     padding: 50px;
     border-radius: 10px;
 }
+
+.help-line{
+    color: red;
+}
