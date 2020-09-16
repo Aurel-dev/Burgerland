@@ -1,0 +1,68 @@
+body{
+    background: url(../images/burgerbleu.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.site{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.text-logo{
+    color: white;
+    font-size: 50px;
+    text-align: center;
+    padding: 40px 0px;
+    text-shadow: 2px 2px #337AB7;
+}
+
+.nav{
+    margin-bottom: 40px;
+}
+
+.thumbnail img{
+    border: solid 1px #337AB7;
+    border-radius: 50%;
+}
+
+.price{
+    background: #337AB7;
+    box-shadow: 0 2px rgba(0,0,0,0.2);
+    color: white;
+    text-shadow: 2px 2px #337AB7;
+    position: absolute;
+    right: 6px;
+    top: 20px;
+    padding: 5px 20px;
+    font-size: 20px;
+    border-radius: 3px;
+}
+
+.caption > h4{
+    color: #337AB7;
+    font-size: 24px;
+}
+
+.nav>li>a:focus, .nav>li>a:hover{
+    color: #337AB7;
+    background-color: white;
+}
+
+.nav>li>a{
+    color: white;
+}
+
+.btn-order{
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #337AB7;
+    text-decoration: none;
+}
+
+.btn-order:hover, .btn-order:focus{
+    color: white;
+    background-color: blue;
+}
