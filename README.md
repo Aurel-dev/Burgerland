@@ -1,5 +1,6 @@
 # Burgerland
 
-Project : Fastfood application which allows you to consult menus, burgers, snacks, etc. as a customer.
-As an administrator, you can create, read, update and delete these items.
-Use of PHP & PhpMyAdmin
+Le projet était de créer une interface pour un fastfood.
+Le client peut choisir les menus/boissons/etc. qu'il souhaite.
+L'administrateur peut créer, consulter, modifier et supprimer ses produits/menus (CRUD)
+Utilisation de PHP, PhpMyAdmin et bootstrap
